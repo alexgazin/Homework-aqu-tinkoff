@@ -1,0 +1,47 @@
+apply plugin: 'com.android.library'
+
+def coreVersion = '3.0.13'
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'io.card:android-sdk:5.2.0'
+    compile 'com.github.devnied:bit-lib4j:1.4.10'
+    compile 'org.apache.commons:commons-lang3:3.4'
+    compile "ru.tinkoff.core:core-nfc:${coreVersion}"
+    compile "ru.tinkoff.core:core-log:${coreVersion}"
+    compile "ru.tinkoff.core:core-log-android:${coreVersion}"
+
+    compile project(':core')
+}
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion '23.0.3'
+
+    lintOptions {
+        disable 'InvalidPackage'
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode Integer.parseInt(VERSION_CODE)
+        versionName VERSION_NAME
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+
+apply from: '../gradle/publish-lib.gradle'
